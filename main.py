@@ -7,7 +7,7 @@ from components.resume import ResumeSection
 from components.project_card import ProjectsSection
 from components.footer import PageFooter
 
-# --- DATA: EMBEDDED DIRECTLY TO PREVENT FILE ERRORS ---
+# --- DATA: EMBEDDED DIRECTLY ---
 RESUME_DATA = {
     "name": "Nolan Fox",
     "title": "Data Scientist",
@@ -156,7 +156,8 @@ headers = (
     """)
 )
 
-app, rt = fast_app(hdrs=headers, live=True, pico=False)
+# CRITICAL FIX: live=False prevents Vercel crash
+app, rt = fast_app(hdrs=headers, live=False, pico=False)
 
 @rt("/")
 def get():
