@@ -92,10 +92,10 @@ education:
     endDate: "2008"
 
 projects:
-  - title: "The Falsifiable Log"
-    description: "This portfolio website. Built using an Agentic Workflow (Claude Code + Cursor) on a pure Python stack (FastHTML)."
-    status: "Live"
-    tags: ["FastHTML", "Python", "AI Engineering"]
+  # - title: "The Falsifiable Log"
+  #   description: "This portfolio website. Built using an Agentic Workflow (Claude Code + Cursor) on a pure Python stack (FastHTML)."
+  #   status: "Live"
+  #   tags: ["FastHTML", "Python", "AI Engineering"]
     
   - title: "Rhodesli Heritage Mapper"
     description: "Computer vision pipeline using facial recognition (dlib/OpenCV) to trace family lineage through archival photographs."

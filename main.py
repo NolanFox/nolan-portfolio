@@ -74,10 +74,10 @@ def get():
     return (
         Title(f"{resume.get('name', 'Nolan Fox')} - {resume.get('title', 'Data Scientist')}"),
         Body(
-            # LAYER 1: The Fixed Background Grid (Fades out, but sits behind)
+            # LAYER 1: The Fixed Background Grid
             Div(cls="fixed-grid-background"),
 
-            # LAYER 2: The Actual Content (Fully Opaque)
+            # LAYER 2: The Actual Content
             Div(
                 PageHeader(),
                 Main(
@@ -92,15 +92,13 @@ def get():
                 ),
                 PageFooter(
                     email=resume.get("email"),
-                    github="nolanandrewfox", 
-                    linkedin=None 
+                    github="NolanFox", 
+                    linkedin="https://www.linkedin.com/in/nolanfox/" 
                 ),
-                # This wrapper ensures content is above the grid
                 cls="content-layer flex flex-col min-h-screen"
             ),
             cls="bg-slate-950 text-slate-100"
         ),
     )
 
-# Keeping Port 5003 to stay clean
 serve(port=5003)
