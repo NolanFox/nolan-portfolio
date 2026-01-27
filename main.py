@@ -11,7 +11,20 @@ from components.footer import PageFooter
 
 def load_resume():
     try:
-        resume_path = Path(__file__).parent / "data" / "resume.yaml"
+        # Vercel-safe path handling
+        current_dir = Path(__file__).parent
+        resume_path = current_dir / "data" / "resume.yaml"
+        
+        if not resume_path.exists():
+            print(f"WARNING: Resume file not found at {resume_path}")
+            # Fallback to avoid crashing if path is wrong in cloud
+            return {
+                "name": "Nolan Fox", 
+                "title": "Data Scientist", 
+                "summary": "Resume data could not be loaded.", 
+                "projects": []
+            }
+            
         with open(resume_path) as f:
             return yaml.safe_load(f)
     except Exception as e:
@@ -101,4 +114,8 @@ def get():
         ),
     )
 
-serve(port=5003)
+# CRITICAL FIX FOR VERCEL:
+# Only run the server if this file is run directly (locally).
+# Vercel imports 'app' and skips this block.
+if __name__ == "__main__":
+    serve(port=5003)
