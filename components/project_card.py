@@ -1,6 +1,5 @@
 from fasthtml.common import *
 
-
 def ProjectCard(
     title: str,
     description: str,
@@ -12,57 +11,58 @@ def ProjectCard(
 
     status_badge = None
     if status:
+        # High Contrast Status Colors
         status_colors = {
-            "In Progress": "bg-amber-100 text-amber-800",
-            "Completed": "bg-green-100 text-green-800",
-            "Planned": "bg-zinc-100 text-zinc-600",
+            "In Progress": "text-amber-300 border-amber-500/30 bg-amber-900/20",
+            "Completed": "text-emerald-300 border-emerald-500/30 bg-emerald-900/20",
+            "Planned": "text-gray-400 border-gray-700 bg-gray-800/50",
         }
-        color_cls = status_colors.get(status, "bg-zinc-100 text-zinc-600")
+        color_cls = status_colors.get(status, "text-gray-400 border-gray-700 bg-gray-800/50")
+        
         status_badge = Span(
             status,
-            cls=f"text-xs px-2 py-1 rounded-full {color_cls}",
+            cls=f"text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border {color_cls}",
         )
 
     card_content = Div(
         Div(
-            H3(title, cls="text-lg font-semibold text-zinc-900"),
+            # FIX: White Title
+            H3(title, cls="text-lg font-bold text-white"),
             status_badge,
-            cls="flex items-center justify-between gap-2",
+            cls="flex items-center justify-between gap-2 mb-3",
         ),
-        P(description, cls="text-zinc-600 mt-2 text-sm leading-relaxed"),
+        # FIX: Light Gray Description (Readable)
+        P(description, cls="text-gray-300 text-sm leading-relaxed mb-6"),
         Div(
             *[
-                Span(tag, cls="text-xs px-2 py-1 bg-zinc-100 text-zinc-600 rounded")
+                Span(f"#{tag}", cls="text-xs text-gray-500 mr-3 font-mono")
                 for tag in tags
             ],
-            cls="flex flex-wrap gap-2 mt-4",
+            cls="flex flex-wrap mt-auto pt-4 border-t border-gray-800",
         ) if tags else None,
-        cls="p-6",
+        cls="p-6 flex flex-col h-full",
     )
+
+    # Hover Effects
+    card_cls = "block bg-slate-900/40 border border-gray-800 rounded-lg hover:border-gray-600 hover:bg-slate-900/80 transition-all duration-300 h-full"
 
     if link:
-        return A(
-            card_content,
-            href=link,
-            cls="block bg-white border border-zinc-200 rounded-xl hover:border-zinc-300 hover:shadow-md transition-all",
-        )
+        return A(card_content, href=link, cls=card_cls)
 
-    return Div(
-        card_content,
-        cls="bg-white border border-zinc-200 rounded-xl",
-    )
+    return Div(card_content, cls=card_cls)
 
 
 def ProjectsSection(projects: list[dict]):
     return Section(
         Div(
+            # FIX: White Header
             H2(
                 "Projects",
-                cls="text-3xl font-bold text-zinc-900 mb-2",
+                cls="text-xs font-bold tracking-widest text-gray-400 uppercase mb-8",
             ),
             P(
-                "A selection of things I've built",
-                cls="text-zinc-500 mb-12",
+                "A selection of systems I've architected.",
+                cls="text-gray-300 mb-8",
             ),
             Div(
                 *[
@@ -77,8 +77,8 @@ def ProjectsSection(projects: list[dict]):
                 ],
                 cls="grid grid-cols-1 md:grid-cols-2 gap-6",
             ),
-            cls="max-w-5xl mx-auto px-6",
+            cls="max-w-3xl mx-auto px-6",
         ),
         id="projects",
-        cls="py-24 bg-zinc-50",
+        cls="py-24 border-t border-gray-800",
     )
