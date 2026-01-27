@@ -1,129 +1,31 @@
 from fasthtml.common import *
+import yaml
+from pathlib import Path
 
-# DIRECT IMPORTS
+# Clean imports from your components folder
 from components.header import PageHeader
 from components.hero import Hero
 from components.resume import ResumeSection
 from components.project_card import ProjectsSection
 from components.footer import PageFooter
 
-# --- DATA: EMBEDDED DIRECTLY ---
-RESUME_DATA = {
-    "name": "Nolan Fox",
-    "title": "Data Scientist",
-    "email": "NolanFox@gmail.com",
-    "phone": "727-492-8601",
-    "url": "https://nolanandrewfox.com",
-    "location": "New York, NY",
-    "summary": "Data Scientist with 17+ years of experience building production data systems. Expert in architecting internal AI agents, optimizing marketing data pipelines (dbt/Snowflake), and driving GTM strategy at high-growth tech companies. Deep expertise in product analytics, experimental design, and defining metrics that drive roadmap decisions and user growth.",
-    "skills": [
-        "AI Engineering: Custom Agents (Notion AI, OpenAI API), FastHTML, Cursor, Claude Code",
-        "Data Engineering: dbt, Snowflake, Hex, Airflow, SQL",
-        "Data Science: Python (Pandas, Scikit-Learn), Causal Inference, Marketing Mix Modeling (MMM)",
-        "Tools: Salesforce, Amplitude, Google Analytics, Tableau, AWS, Docker"
-    ],
-    "work": [
-        {
-            "company": "Notion",
-            "position": "Product Data Scientist - Marketing",
-            "startDate": "2024",
-            "endDate": "2026",
-            "highlights": [
-                "Built AI-enabled social listening platform automating sentiment analysis and keyword categorization.",
-                "Delivered weekly marketing performance reports to CMO and led student growth forecasting for multiple campaigns.",
-                "Identified and fixed a critical Salesforce pipeline logic error via dbt, correcting a $1.7B over-counting discrepancy to an accurate $60M figure.",
-                "Built international growth dashboard by language to prioritize localization investments across 100+ countries.",
-                "Supported product launch for Notion Faces, Notion Mail, AI Meeting Notes, and Offline Mode campaigns."
-            ]
-        },
-        {
-            "company": "Cash App (Block, Inc.)",
-            "position": "Product Data Scientist - Marketing",
-            "startDate": "2022",
-            "endDate": "2024",
-            "highlights": [
-                "Built Product Data Science support for marketing stakeholders from the ground up, leading DS for GTMs of Gift Card, Savings, and Mood Card.",
-                "Produced an internal Media Mix Model (MMM) for the Paid Acquisition Team to optimize spend allocation.",
-                "Created lookalike audiences for various Paid Acquisition Campaigns and planned experimental design for Teens/Families Marketing Campaigns.",
-                "Improved measurement and assisted expansion of Banking Triggered Campaigns."
-            ]
-        },
-        {
-            "company": "Cash App (Block, Inc.)",
-            "position": "Product Data Scientist - Financial Platform",
-            "startDate": "2021",
-            "endDate": "2022",
-            "highlights": [
-                "Led the launch of Prepaid Debit Card acceptance, resulting in $7 billion in incremental GPV.",
-                "Optimized debit network transaction routing, resulting in $57 million in annual savings.",
-                "Expanded coverage of cost data model to include migration from monolith to service-oriented architecture.",
-                "Provided analytic support for negotiations with and transaction routing optimization of debit networks."
-            ]
-        },
-        {
-            "company": "IKASI",
-            "position": "Co-Founder and Chief Data Scientist",
-            "startDate": "2014",
-            "endDate": "2021",
-            "highlights": [
-                "Led product development of a platform automating supervised learning and experimental design for outbound marketing campaigns.",
-                "Built Reinforcement Learning models to optimize player investment that led to a 7% revenue rise in multiple $250M revenue casinos.",
-                "Launched platform analyzing healthcare data to predict seroprevalence and vaccine deployment using MCMC models during COVID-19.",
-                "Recruited and managed Data Science and Engineering teams from scratch.",
-                "Created bespoke ensemble model using Deep Learning, XGBoost, and other algorithms."
-            ]
-        },
-        {
-            "company": "Facebook (Meta)",
-            "position": "Data Scientist - Internet.org Growth",
-            "startDate": "2013",
-            "endDate": "2014",
-            "highlights": [
-                "Owned analytics for BI portal serving 2,000+ mobile carriers across APAC, LATAM, and MENA.",
-                "Lead analyst on the first Internet.org test (Tigo PY), driving 300k incremental internet users.",
-                "Implemented adjustments to internal carrier detection that improved attribution by 8%."
-            ]
-        },
-        {
-            "company": "Adaptly, Inc.",
-            "position": "Data Scientist",
-            "startDate": "2012",
-            "endDate": "2013",
-            "highlights": [
-                "Improved optimization on social media advertising campaigns, resulting in $28M of incremental revenue.",
-                "Optimized proprietary budget allocation algorithm, Circuit, resulting in a 17% lift in efficiency.",
-                "Designed, tested, and optimized Evergreen advertising spend algorithm."
-            ]
-        },
-        {
-            "company": "Capital One Financial Services",
-            "position": "Senior Business Analyst",
-            "startDate": "2009",
-            "endDate": "2012",
-            "highlights": [
-                "Lead analyst for acquisitions valuations for marquee product, Venture credit card.",
-                "Delivered credit approval for reactive credit limit increase program, producing a $50 million annual NPV.",
-                "Produced monthly staffing and financial forecasts for 2,000+ person Collections network."
-            ]
+def load_resume():
+    try:
+        # Resolve gets the absolute path, fixing "File Not Found" errors in the cloud
+        base_dir = Path(__file__).resolve().parent
+        yaml_path = base_dir / "data" / "resume.yaml"
+        
+        with open(yaml_path, "r") as f:
+            return yaml.safe_load(f)
+    except Exception as e:
+        print(f"Error loading resume: {e}")
+        # Fallback to prevent 500 Crash if file is moved/missing
+        return {
+            "name": "Nolan Fox", 
+            "title": "Portfolio", 
+            "summary": "Could not load data.", 
+            "projects": []
         }
-    ],
-    "education": [
-        {
-            "institution": "University of Florida",
-            "degree": "Bachelor of Science",
-            "area": "Biological Engineering (Summa Cum Laude)",
-            "endDate": "2008"
-        }
-    ],
-    "projects": [
-        {
-            "title": "Rhodesli Heritage Mapper",
-            "description": "Computer vision pipeline using facial recognition (dlib/OpenCV) to trace family lineage through archival photographs.",
-            "status": "In Progress",
-            "tags": ["Computer Vision", "Python", "History"]
-        }
-    ]
-}
 
 # --- APP CONFIGURATION ---
 headers = (
@@ -137,7 +39,7 @@ headers = (
             font-family: 'Inter', sans-serif; 
             min-height: 100vh;
         }
-        /* TEXT VISIBILITY ENFORCEMENT */
+        /* Text Visibility Enforcement */
         p, span, div, a, li, h1, h2, h3, h4, h5, h6 {
             opacity: 1 !important;
         }
@@ -156,29 +58,32 @@ headers = (
     """)
 )
 
-# CRITICAL FIX: live=False prevents Vercel crash
+# CRITICAL FOR VERCEL: live=False
 app, rt = fast_app(hdrs=headers, live=False, pico=False)
 
 @rt("/")
 def get():
+    # Load data from YAML on every request
+    resume = load_resume()
+
     return (
-        Title(f"{RESUME_DATA['name']} - {RESUME_DATA['title']}"),
+        Title(f"{resume.get('name', 'Nolan Fox')} - {resume.get('title', 'Data Scientist')}"),
         Body(
             Div(cls="fixed-grid-background"),
             Div(
                 PageHeader(),
                 Main(
                     Hero(
-                        name=RESUME_DATA["name"],
-                        title=RESUME_DATA["title"],
-                        summary=RESUME_DATA["summary"],
+                        name=resume.get("name", "Nolan Fox"),
+                        title=resume.get("title", "Data Scientist"),
+                        summary=resume.get("summary", "Building AI systems."),
                     ),
-                    ResumeSection(RESUME_DATA),
-                    ProjectsSection(RESUME_DATA.get("projects", [])),
+                    ResumeSection(resume),
+                    ProjectsSection(resume.get("projects", [])),
                     cls="max-w-7xl mx-auto w-full"
                 ),
                 PageFooter(
-                    email=RESUME_DATA.get("email"),
+                    email=resume.get("email"),
                     github="NolanFox", 
                     linkedin="https://www.linkedin.com/in/nolanfox/" 
                 ),
@@ -188,5 +93,6 @@ def get():
         ),
     )
 
+# Ensures server only runs locally, not in the cloud
 if __name__ == "__main__":
     serve(port=5003)
