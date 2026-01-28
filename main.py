@@ -187,8 +187,8 @@ def PageFooter(email, github, linkedin):
 headers = (
     Script(src="https://cdn.tailwindcss.com"),
     Link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"),
-    # THE FIX: Explicitly link the icon
-    Link(rel="icon", href="/favicon.ico", type="image/x-icon"),
+    # THE FIX: Absolute URL to eliminate path confusion
+    Link(rel="icon", href="https://www.nolanandrewfox.com/favicon.ico", type="image/x-icon"),
     Style("""
         /* FORCE Dark Background */
         html, body { 
