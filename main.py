@@ -222,13 +222,10 @@ app = FastHTML(hdrs=headers, live=False)
 rt = app.route
 
 @rt("/favicon.ico")
-def get():
-    # 1. Define the absolute path to the public folder
-    # This works both on your laptop and in the Vercel cloud
+def favicon():
     root_dir = Path(__file__).resolve().parent
+    # Force absolute path to avoid any ambiguity
     favicon_path = root_dir / "public" / "favicon.ico"
-    
-    # 2. Serve the file directly
     return FileResponse(favicon_path)
 
 @rt("/")
