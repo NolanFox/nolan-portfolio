@@ -6,6 +6,7 @@ from fasthtml.xtend import Script, Link, Style, Title, Body, Main, Div, Nav, Hea
 import yaml
 from pathlib import Path
 import uvicorn
+from starlette.responses import FileResponse
 
 # --- DATA LOADER ---
 def load_resume():
@@ -219,6 +220,16 @@ headers = (
 # This bypasses the Database creation that was crashing Vercel.
 app = FastHTML(hdrs=headers, live=False)
 rt = app.route
+
+@rt("/favicon.ico")
+def get():
+    # 1. Define the absolute path to the public folder
+    # This works both on your laptop and in the Vercel cloud
+    root_dir = Path(__file__).resolve().parent
+    favicon_path = root_dir / "public" / "favicon.ico"
+    
+    # 2. Serve the file directly
+    return FileResponse(favicon_path)
 
 @rt("/")
 def get():
