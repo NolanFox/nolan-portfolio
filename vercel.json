@@ -5,7 +5,7 @@
   ],
   "functions": {
     "api/index.py": {
-      "includeFiles": "data/**"
+      "includeFiles": "data/**, favicon.ico"
     }
   }
 }
