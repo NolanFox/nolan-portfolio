@@ -186,10 +186,23 @@ def PageFooter(email, github, linkedin):
 headers = (
     Script(src="https://cdn.tailwindcss.com"),
     Link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"),
+    # THE FIX: Explicitly link the icon
+    Link(rel="icon", href="/favicon.ico", type="image/x-icon"),
     Style("""
-        html, body { background-color: #020617 !important; color: #f8fafc; font-family: 'Inter', sans-serif; min-height: 100vh; }
-        p, span, div, a, li, h1, h2, h3, h4, h5, h6 { opacity: 1 !important; }
+        /* FORCE Dark Background */
+        html, body { 
+            background-color: #020617 !important; 
+            color: #f8fafc; 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100vh;
+        }
+        /* Text Visibility Enforcement */
+        p, span, div, a, li, h1, h2, h3, h4, h5, h6 {
+            opacity: 1 !important;
+        }
         .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* The Fixed Background Grid */
         .fixed-grid-background {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;
             background-size: 40px 40px;

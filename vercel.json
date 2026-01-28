@@ -1,11 +1,5 @@
 {
   "rewrites": [
-    { "source": "/favicon.ico", "destination": "/favicon.ico" },
     { "source": "/(.*)", "destination": "/api/index.py" }
-  ],
-  "functions": {
-    "api/index.py": {
-      "includeFiles": "data/**, favicon.ico"
-    }
-  }
+  ]
 }
