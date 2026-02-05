@@ -98,6 +98,7 @@ projects:
   #   tags: ["FastHTML", "Python", "AI Engineering"]
     
   - title: "Rhodesli Heritage Mapper"
-    description: "Computer vision pipeline using facial recognition (dlib/OpenCV) to trace family lineage through archival photographs."
+    description: "Family photo archive with ML-powered face detection and clustering. Built with FastHTML, deployed on Railway with Cloudflare R2 storage. Identifies and tags relatives across generations of archival photographs."
     status: "In Progress"
-    tags: ["Computer Vision", "Python", "History"]
+    tags: ["Computer Vision", "Python", "FastHTML", "ML"]
+    link: "https://rhodesli.nolanandrewfox.com"
